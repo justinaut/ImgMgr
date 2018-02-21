@@ -24,5 +24,10 @@ namespace ImgMgr.Wpf
 		{
 			InitializeComponent();
 		}
+
+		private void ImgMgrMainWindow_Loaded(object sender, RoutedEventArgs e)
+		{
+
+		}
 	}
 }

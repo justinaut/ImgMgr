@@ -1,10 +1,10 @@
 (copied and re-formatted from word into markdown)
 
 # Creating Client Applications in C#
-Final Project
+Final Project  
 University of Washington Extension
 
-INSTRUCTOR: David Figge
+INSTRUCTOR: David Figge  
 E-MAIL: [removed]
 
 ## Overview
@@ -33,6 +33,7 @@ The application keeps track of photographs and their related data. The specific 
 * The name of the artist who took the picture (Data type: String)
 * A list of keywords associated with the photo (Data type: String, keywords separated by ,)
 * The file location of the photo (Data type: String)
+
 The data for each photo is to be kept in a Photograph class, which should contain the above elements.
 
 You will need to build the information about the photos. You can usually find some sample photos (which is sufficient for the project) in the "C:\Users\Public\Pictures\Sample Pictures" directory. You can also use any other photos you may have or locate. The data about the photo (when it was taken, by whom, etc.) does not need to be accurate (e.g. feel free to make it up). Consider pre-populating several photos into your collection at start-up so you don’t need to enter them manually for every run of the program.
@@ -47,7 +48,7 @@ The user interface is to be written as a Windows WPF application. The main windo
 	* The description of the photo
 	* One of the keywords specified in the Keywords string of the photograph class
 		* Multiple keywords can be entered separated by commas (,). To separate the keywords, use either the String class commands to split the string apart at the comma characters, or a Regex pattern (your choice).
-		* Multiple keys represent “any of these” options. So “Dog, Cat” would match any photo with Dog and any photo with Cat
+		* Multiple keys represent “any of these” options. So “Dog, Cat” would match any photo with Dog and any photo with Cat  
 Note that, because the contents of the DataGrid is driven by the search process, using data binding for this control may not be the most effective solution. It may also make sense to use a separate collection to drive the DataGrid than the photos collection (since it sometimes shows a subset of the entire photo collection).
 * A New button, used to enter a new photograph into the collection
 * A “New Photograph” dialog box is to appear asking for the relevant information about the photograph. The dialog box should have the typical “OK” and “Cancel” buttons. If the user presses OK, a new Photograph object should be properly populated and added to the collection of photograph objects. 
@@ -55,9 +56,9 @@ Note that, because the contents of the DataGrid is driven by the search process,
 
 #### Optional Extras
 The above describes the minimum project requirements. If you have time and wish to add more to your project, you might consider the following:
-•	Saving/loading your project data between sessions. This could either be to a database or to a data file. If you use a database, use it in conjunction with the internal data collection, not as a replacement for that mechanism.
-•	In addition to entering new information about a photo, provide the option for editing an existing photo entry. You might even be able to reuse the “New” dialog box…
-•	Modify the Search function to do an “active search”, so when new characters are entered the selected list automatically narrows it’s choices. To do this, investigate tapping into the TextBox’s TextChanged event.
+* Saving/loading your project data between sessions. This could either be to a database or to a data file. If you use a database, use it in conjunction with the internal data collection, not as a replacement for that mechanism.
+* In addition to entering new information about a photo, provide the option for editing an existing photo entry. You might even be able to reuse the “New” dialog box…
+* Modify the Search function to do an “active search”, so when new characters are entered the selected list automatically narrows it’s choices. To do this, investigate tapping into the TextBox’s TextChanged event.
  
 #### General
 Comments block
@@ -73,7 +74,7 @@ All code should be adequately commented. Each function should include the standa
 ```
 This is generally considered minimum documentation for a program. This is only required in code that you specifically write (not in compiler generated code such as designer.cs modules). You should also comment any code lines that might be confusing to the reader. Rule of thumb: if it’s not crystal clear what’s happening in your code, add some comments.
 #### Naming
-All variable and function names (except short-term local counter or index-type variables) MUST be meaningful.  This means that no single letter (or ‘X1’) type variables in any significant role. When in doubt, make it meaningful. Further, variable and function names should be consistent.
+All variable and function names (except short-term local counter or index-type variables) **MUST be meaningful**.  This means that no single letter (or ‘X1’) type variables in any significant role. When in doubt, make it meaningful. Further, variable and function names should be consistent.
 
 ### Project Grading
 Although it is certainly a significant portion of this class, it is not graded as such. It is simply an opportunity for you to apply some of the knowledge you have learned in class to a larger-than-typical-lab project, and to allow you to design as well as implement the solution. It is not a graded exercise, it’s more of a learning opportunity and should be approached as such.

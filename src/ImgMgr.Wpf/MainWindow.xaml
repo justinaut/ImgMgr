@@ -10,15 +10,15 @@
         <TextBox x:Name="tbSearch" HorizontalAlignment="Left" Height="23" Margin="10,47,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="163"/>
         <Button x:Name="btnSearch" Content="Search" HorizontalAlignment="Left" Margin="178,50,0,0" VerticalAlignment="Top" Width="75"/>
         <Button x:Name="btnNewImage" Content="Add New Image" HorizontalAlignment="Left" Margin="621,50,0,0" VerticalAlignment="Top" Width="108"/>
-        <DataGrid x:Name="dataGridImageCollection" HorizontalAlignment="Left" Height="182" Margin="10,82,0,0" VerticalAlignment="Top" Width="719"/>
+        <DataGrid x:Name="dataGridImageCollection" HorizontalAlignment="Left" Height="182" Margin="10,82,0,0" VerticalAlignment="Top" Width="719" SelectionChanged="dataGridImageCollection_SelectionChanged"/>
         <Image x:Name="imgImageArea" HorizontalAlignment="Left" Height="278" Margin="10,281,0,0" VerticalAlignment="Top" Width="450"/>
         <Label x:Name="lblKeywords" Content="Keywords: " HorizontalAlignment="Left" Margin="492,389,0,0" VerticalAlignment="Top"/>
-        <Label x:Name="lblKeywordsOutput" Content="Label" HorizontalAlignment="Left" Margin="564,389,0,0" VerticalAlignment="Top" Width="213"/>
+        <Label x:Name="lblKeywordsOutput" Content="{Binding ElementName=ImgMgrMainWindow, Path=SelectedDataGridItem.Keywords}" HorizontalAlignment="Left" Margin="564,389,0,0" VerticalAlignment="Top" Width="213"/>
         <Label x:Name="lblFileLocation" Content="File Location: " HorizontalAlignment="Left" Margin="477,420,0,0" VerticalAlignment="Top"/>
-        <Label x:Name="lblFileLocationOutput" Content="Label" HorizontalAlignment="Left" Margin="564,420,0,0" VerticalAlignment="Top" Width="213"/>
+        <Label x:Name="lblFileLocationOutput" Content="{Binding ElementName=ImgMgrMainWindow, Path=SelectedDataGridItem.FileLocation}" HorizontalAlignment="Left" Margin="564,420,0,0" VerticalAlignment="Top" Width="213"/>
         <Label x:Name="lblDateAdded" Content="Date Added: " HorizontalAlignment="Left" Margin="480,451,0,0" VerticalAlignment="Top"/>
-        <Label x:Name="lblDateAddedOutput" Content="Label" HorizontalAlignment="Left" Margin="564,451,0,0" VerticalAlignment="Top" Width="213"/>
+        <Label x:Name="lblDateAddedOutput" Content="{Binding ElementName=ImgMgrMainWindow, Path=SelectedDataGridItem.DateAdded}" ContentStringFormat="{}{0:yyyy-MM-dd}" HorizontalAlignment="Left" Margin="564,451,0,0" VerticalAlignment="Top" Width="213"/>
         <Label x:Name="lblAuthor" Content="Author: " HorizontalAlignment="Left" Margin="507,482,0,0" VerticalAlignment="Top"/>
-        <Label x:Name="lblAuthorOutput" Content="Label" HorizontalAlignment="Left" Margin="564,482,0,0" VerticalAlignment="Top" Width="213"/>
+        <Label x:Name="lblAuthorOutput" Content="{Binding ElementName=ImgMgrMainWindow, Path=SelectedDataGridItem.Author}" HorizontalAlignment="Left" Margin="564,482,0,0" VerticalAlignment="Top" Width="213"/>
     </Grid>
 </Window>

@@ -1,12 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace ImgMgr.Wpf.Models
 {
-	public class ImageModel
+	public class ImageModel : INotifyPropertyChanged
 	{
 		private int _id;
 		private string _title;
@@ -16,9 +17,60 @@ namespace ImgMgr.Wpf.Models
 		private string _author;
 		private string _keywords;
 		private string _fileLocation;
+		private static int LastId = 0;
+		public event PropertyChangedEventHandler PropertyChanged;
 
-		public ImageModel()
+		/// <summary>
+		/// Simple ImageModel constructor requiring only Title and File Location.
+		/// </summary>
+		/// <param name="title"></param>
+		/// <param name="fileLocation"></param>
+		public ImageModel(string title, string fileLocation)
+			: this(title, DateTime.Now, DateTime.Now, "", "", "", fileLocation)
 		{ }
+
+		/// <summary>
+		/// Full ImageModel constructor.
+		/// </summary>
+		/// <param name="title"></param>
+		/// <param name="dateCreated"></param>
+		/// <param name="dateAdded"></param>
+		/// <param name="description"></param>
+		/// <param name="author"></param>
+		/// <param name="keywords"></param>
+		/// <param name="fileLocation"></param>
+		public ImageModel(string title, DateTime dateCreated, DateTime dateAdded, string description, string author, string keywords, string fileLocation)
+		{
+			Id = NextId();
+			Title = title;
+			DateCreated = dateCreated;
+			DateAdded = dateAdded;
+			Description = description;
+			Author = author;
+			Keywords = keywords;
+			FileLocation = fileLocation;
+		}
+
+		/// <summary>
+		/// NextId ensures there is an incrementing ID applied to each instance of ImageModel.
+		/// </summary>
+		/// <returns></returns>
+		private int NextId() { return ++LastId; }
+
+		/// <summary>
+		/// Invokes the PropertyChanged event. 
+		/// Helper method called by Properties.
+		/// </summary>
+		/// <param name="property"></param>
+		private void NotifyChanged(string property)
+		{
+			if (PropertyChanged != null)
+			{
+				PropertyChanged.Invoke(this, new PropertyChangedEventArgs(property));
+			}
+		}
+
+		#region Properties
 
 		public int Id
 		{
@@ -26,6 +78,7 @@ namespace ImgMgr.Wpf.Models
 			private set
 			{
 				_id = value;
+				NotifyChanged("Id");
 			}
 		}
 
@@ -35,6 +88,7 @@ namespace ImgMgr.Wpf.Models
 			set
 			{
 				_title = value;
+				NotifyChanged("Title");
 			}
 		}
 
@@ -44,6 +98,7 @@ namespace ImgMgr.Wpf.Models
 			set
 			{
 				_dateCreated = value;
+				NotifyChanged("DateCreated");
 			}
 		}
 
@@ -53,6 +108,7 @@ namespace ImgMgr.Wpf.Models
 			set
 			{
 				_dateAdded = value;
+				NotifyChanged("DateAdded");
 			}
 		}
 
@@ -62,6 +118,7 @@ namespace ImgMgr.Wpf.Models
 			set
 			{
 				_description = value;
+				NotifyChanged("Description");
 			}
 		}
 
@@ -71,6 +128,7 @@ namespace ImgMgr.Wpf.Models
 			set
 			{
 				_author = value;
+				NotifyChanged("Author");
 			}
 		}
 
@@ -80,6 +138,7 @@ namespace ImgMgr.Wpf.Models
 			set
 			{
 				_keywords = value;
+				NotifyChanged("Keywords");
 			}
 		}
 
@@ -89,7 +148,9 @@ namespace ImgMgr.Wpf.Models
 			set
 			{
 				_fileLocation = value;
+				NotifyChanged("FileLocation");
 			}
 		}
+		#endregion
 	}
 }

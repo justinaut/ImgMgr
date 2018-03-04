@@ -48,6 +48,14 @@ namespace ImgMgr.Wpf
 		private void dataGridImageCollection_SelectionChanged(object sender, SelectionChangedEventArgs e)
 		{
 			SelectedDataGridItem = (ImageModel)dataGridImageCollection.SelectedItem;
+			try
+			{
+				imgImageArea.Source = new BitmapImage(new Uri(SelectedDataGridItem.FileLocation));
+			}
+			catch (Exception exception)
+			{
+				Console.WriteLine($"Exception: {exception.Message}");
+			}
 		}
 
 		private void AddDefaultImages()

@@ -9,8 +9,8 @@
     <Grid>
         <TextBox x:Name="tbSearch" HorizontalAlignment="Left" Height="23" Margin="10,47,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="163"/>
         <Button x:Name="btnSearch" Content="Search" HorizontalAlignment="Left" Margin="178,50,0,0" VerticalAlignment="Top" Width="75"/>
-        <Button x:Name="btnNewImage" Content="Add New Image" HorizontalAlignment="Left" Margin="621,50,0,0" VerticalAlignment="Top" Width="108"/>
-        <DataGrid x:Name="dataGridImageCollection" HorizontalAlignment="Left" Height="182" Margin="10,82,0,0" VerticalAlignment="Top" Width="719" SelectionChanged="dataGridImageCollection_SelectionChanged"/>
+        <Button x:Name="btnNewImage" Content="Add New Image" HorizontalAlignment="Left" Margin="621,50,0,0" VerticalAlignment="Top" Width="108" Click="btnNewImage_Click"/>
+        <DataGrid x:Name="dataGridImageCollection" HorizontalAlignment="Left" Height="182" Margin="10,82,0,0" VerticalAlignment="Top" Width="719" SelectionChanged="dataGridImageCollection_SelectionChanged" CanUserAddRows="False"/>
         <Image x:Name="imgImageArea" HorizontalAlignment="Left" Height="278" Margin="10,281,0,0" VerticalAlignment="Top" Width="450"/>
         <Label x:Name="lblKeywords" Content="Keywords: " HorizontalAlignment="Left" Margin="492,389,0,0" VerticalAlignment="Top"/>
         <Label x:Name="lblKeywordsOutput" Content="{Binding ElementName=ImgMgrMainWindow, Path=SelectedDataGridItem.Keywords}" HorizontalAlignment="Left" Margin="564,389,0,0" VerticalAlignment="Top" Width="213"/>
@@ -20,5 +20,6 @@
         <Label x:Name="lblDateAddedOutput" Content="{Binding ElementName=ImgMgrMainWindow, Path=SelectedDataGridItem.DateAdded}" ContentStringFormat="{}{0:yyyy-MM-dd}" HorizontalAlignment="Left" Margin="564,451,0,0" VerticalAlignment="Top" Width="213"/>
         <Label x:Name="lblAuthor" Content="Author: " HorizontalAlignment="Left" Margin="507,482,0,0" VerticalAlignment="Top"/>
         <Label x:Name="lblAuthorOutput" Content="{Binding ElementName=ImgMgrMainWindow, Path=SelectedDataGridItem.Author}" HorizontalAlignment="Left" Margin="564,482,0,0" VerticalAlignment="Top" Width="213"/>
+        <Button x:Name="btnEditImage" Content="Edit Image Information" HorizontalAlignment="Left" Margin="376,50,0,0" VerticalAlignment="Top" Width="141" Click="btnEditImage_Click"/>
     </Grid>
 </Window>

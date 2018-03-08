@@ -18,7 +18,14 @@ namespace ImgMgr.Wpf.Models
 		private string _keywords;
 		private string _fileLocation;
 		private static int LastId = 0;
+		private bool _valid;
 		public event PropertyChangedEventHandler PropertyChanged;
+
+		/// <summary>
+		/// Constructor with zero parameters allows an empty ImageModel to be created.
+		/// </summary>
+		public ImageModel() : this("", "")
+		{ }
 
 		/// <summary>
 		/// Simple ImageModel constructor requiring only Title and File Location.
@@ -70,7 +77,30 @@ namespace ImgMgr.Wpf.Models
 			}
 		}
 
+		/// <summary>
+		/// Copy Properties (except Id) from one ImageModel into this ImageModel.
+		/// </summary>
+		/// <param name="model"></param>
+		public void CopyFrom(ImageModel model)
+		{
+			this.Title = model.Title;
+			this.FileLocation = model.FileLocation;
+			this.Author = model.Author;
+			this.DateAdded = model.DateAdded;
+			this.DateCreated = model.DateCreated;
+			this.Description = model.Description;
+			this.Keywords = model.Keywords;
+		}
+
 		#region Properties
+
+		/// <summary>
+		/// The ImageModel is valid when both Title and File Location are non-null and non-whitespace strings.
+		/// </summary>
+		public bool IsValid
+		{
+			get { return (!string.IsNullOrWhiteSpace(Title) && !string.IsNullOrWhiteSpace(FileLocation)); }
+		}
 
 		public int Id
 		{

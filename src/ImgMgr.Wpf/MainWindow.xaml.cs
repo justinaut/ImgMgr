@@ -36,7 +36,6 @@ namespace ImgMgr.Wpf
 		private void ImgMgrMainWindow_Loaded(object sender, RoutedEventArgs e)
 		{
 			AddDefaultImages();
-			
 
 			dataGridImageCollection.AutoGenerateColumns = false;
 			dataGridImageCollection.ItemsSource = Images;
@@ -47,7 +46,12 @@ namespace ImgMgr.Wpf
 
 		private void dataGridImageCollection_SelectionChanged(object sender, SelectionChangedEventArgs e)
 		{
-			SelectedDataGridItem = (ImageModel)dataGridImageCollection.SelectedItem;
+			if (dataGridImageCollection.Items.Count > 0 && dataGridImageCollection.SelectedIndex < 0)
+			{
+				dataGridImageCollection.SelectedIndex = 0;
+			}
+
+			SelectedDataGridItem = Images[dataGridImageCollection.SelectedIndex];
 			try
 			{
 				imgImageArea.Source = new BitmapImage(new Uri(SelectedDataGridItem.FileLocation));
@@ -55,6 +59,33 @@ namespace ImgMgr.Wpf
 			catch (Exception exception)
 			{
 				Console.WriteLine($"Exception: {exception.Message}");
+			}
+		}
+
+		private void btnNewImage_Click(object sender, RoutedEventArgs e)
+		{
+			ImageModel blankImageInfo = new ImageModel();
+			AddEditWindow addModifyWindow = new AddEditWindow(blankImageInfo);
+			if (addModifyWindow.ShowDialog() ?? false)
+			{
+				Images.Add(blankImageInfo);
+				dataGridImageCollection.Items.Refresh();
+			}
+
+		}
+
+		private void btnEditImage_Click(object sender, RoutedEventArgs e)
+		{
+			if (SelectedDataGridItem != null)
+			{
+				ImageModel doppleganger = new ImageModel();
+				doppleganger.CopyFrom(SelectedDataGridItem);
+
+				AddEditWindow addModifyWindow = new AddEditWindow(doppleganger);
+				if (addModifyWindow.ShowDialog() ?? false)
+				{
+					SelectedDataGridItem.CopyFrom(doppleganger);
+				}
 			}
 		}
 

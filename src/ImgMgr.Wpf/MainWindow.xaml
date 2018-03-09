@@ -8,9 +8,9 @@
         Title="Image Manager" Height="600" Width="800" Loaded="ImgMgrMainWindow_Loaded">
     <Grid>
         <TextBox x:Name="tbSearch" HorizontalAlignment="Left" Height="23" Margin="10,47,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="163"/>
-        <Button x:Name="btnSearch" Content="Search" HorizontalAlignment="Left" Margin="178,50,0,0" VerticalAlignment="Top" Width="75"/>
+        <Button x:Name="btnSearch" Content="Search" HorizontalAlignment="Left" Margin="178,50,0,0" VerticalAlignment="Top" Width="75" Click="btnSearch_Click"/>
         <Button x:Name="btnNewImage" Content="Add New Image" HorizontalAlignment="Left" Margin="621,50,0,0" VerticalAlignment="Top" Width="108" Click="btnNewImage_Click"/>
-        <DataGrid x:Name="dataGridImageCollection" HorizontalAlignment="Left" Height="182" Margin="10,82,0,0" VerticalAlignment="Top" Width="719" SelectionChanged="dataGridImageCollection_SelectionChanged" CanUserAddRows="False"/>
+        <DataGrid x:Name="dataGridImageCollection" AutoGenerateColumns="False" HorizontalAlignment="Left" Height="182" Margin="10,82,0,0" VerticalAlignment="Top" Width="719" SelectionChanged="dataGridImageCollection_SelectionChanged" CanUserAddRows="False" IsReadOnly="True"/>
         <Image x:Name="imgImageArea" HorizontalAlignment="Left" Height="278" Margin="10,281,0,0" VerticalAlignment="Top" Width="450"/>
         <Label x:Name="lblKeywords" Content="Keywords: " HorizontalAlignment="Left" Margin="492,389,0,0" VerticalAlignment="Top"/>
         <Label x:Name="lblKeywordsOutput" Content="{Binding ElementName=ImgMgrMainWindow, Path=SelectedDataGridItem.Keywords}" HorizontalAlignment="Left" Margin="564,389,0,0" VerticalAlignment="Top" Width="213"/>

@@ -14,6 +14,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using ImgMgr.Wpf.Models;
+using System.IO;
 
 namespace ImgMgr.Wpf
 {
@@ -37,7 +38,8 @@ namespace ImgMgr.Wpf
 		{
 			AddDefaultImages();
 
-			dataGridImageCollection.AutoGenerateColumns = false;
+			// TODO: How to specify date formatting?
+			// TODO: How to specify a text wrap style?
 			dataGridImageCollection.ItemsSource = Images;
 			dataGridImageCollection.Columns.Add(new DataGridTextColumn() { Header = "Title", Binding = new Binding("Title") });
 			dataGridImageCollection.Columns.Add(new DataGridTextColumn() { Header = "Date Created", Binding = new Binding("DateCreated") });
@@ -52,9 +54,17 @@ namespace ImgMgr.Wpf
 			}
 
 			SelectedDataGridItem = Images[dataGridImageCollection.SelectedIndex];
+
 			try
 			{
-				imgImageArea.Source = new BitmapImage(new Uri(SelectedDataGridItem.FileLocation));
+				if (File.Exists(SelectedDataGridItem.FileLocation))
+				{
+					imgImageArea.Source = new BitmapImage(new Uri(SelectedDataGridItem.FileLocation));
+				}
+				else
+				{
+					imgImageArea.Source = null;
+				}
 			}
 			catch (Exception exception)
 			{
@@ -70,8 +80,10 @@ namespace ImgMgr.Wpf
 			{
 				Images.Add(blankImageInfo);
 				dataGridImageCollection.Items.Refresh();
-			}
 
+				// Set the newly added ImageModel to the Selected Image in the Data Grid
+				dataGridImageCollection.SelectedIndex = Images.Count - 1;
+			}
 		}
 
 		private void btnEditImage_Click(object sender, RoutedEventArgs e)
@@ -130,6 +142,16 @@ namespace ImgMgr.Wpf
 			Images.Add(new ImageModel(
 				"Shell background",
 				@"C:\Users\Justin\Desktop\Images\ShellBackground.jpg"));
+
+			// Add an ImageModel with a file path leading to no file
+			Images.Add(new ImageModel(
+				"Sometimes Accidents Happen",
+				new DateTime(2018, 3, 8),
+				DateTime.Now,
+				"Test record to see how a bad file path is handled.",
+				"Justin",
+				"oops, my bad",
+				@"C:\Users\Justin\Desktop\Images\no-image-here.jpg"));
 		}
 
 		/// <summary>
@@ -164,5 +186,10 @@ namespace ImgMgr.Wpf
 		}
 
 		#endregion
+
+		private void btnSearch_Click(object sender, RoutedEventArgs e)
+		{
+
+		}
 	}
 }

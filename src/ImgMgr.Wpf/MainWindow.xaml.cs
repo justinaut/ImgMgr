@@ -15,6 +15,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using ImgMgr.Wpf.Models;
 using System.IO;
+using System.Text.RegularExpressions;
 
 namespace ImgMgr.Wpf
 {
@@ -24,6 +25,7 @@ namespace ImgMgr.Wpf
 	public partial class MainWindow : Window, INotifyPropertyChanged
 	{
 		ImageCollection _images;
+		ImageCollection _dataGridSource;
 		ImageModel _selectedItem;
 		public event PropertyChangedEventHandler PropertyChanged;
 		
@@ -37,6 +39,7 @@ namespace ImgMgr.Wpf
 		private void ImgMgrMainWindow_Loaded(object sender, RoutedEventArgs e)
 		{
 			AddDefaultImages();
+			DataGridSource = Images;
 
 			// TODO: How to specify date formatting?
 			// TODO: How to specify a text wrap style?
@@ -53,7 +56,7 @@ namespace ImgMgr.Wpf
 				dataGridImageCollection.SelectedIndex = 0;
 			}
 
-			SelectedDataGridItem = Images[dataGridImageCollection.SelectedIndex];
+			SelectedDataGridItem = DataGridSource[dataGridImageCollection.SelectedIndex];
 
 			try
 			{
@@ -79,10 +82,11 @@ namespace ImgMgr.Wpf
 			if (addModifyWindow.ShowDialog() ?? false)
 			{
 				Images.Add(blankImageInfo);
-				dataGridImageCollection.Items.Refresh();
+				DataGridSource = Images;
+				ClearDataGridSearch();
 
 				// Set the newly added ImageModel to the Selected Image in the Data Grid
-				dataGridImageCollection.SelectedIndex = Images.Count - 1;
+				dataGridImageCollection.SelectedIndex = DataGridSource.Count - 1;
 			}
 		}
 
@@ -99,6 +103,62 @@ namespace ImgMgr.Wpf
 					SelectedDataGridItem.CopyFrom(doppleganger);
 				}
 			}
+		}
+
+		private void btnSearch_Click(object sender, RoutedEventArgs e)
+		{
+			if (string.IsNullOrWhiteSpace(tbSearch.Text))
+			{
+				// Effectively reset the results when searching for nothing
+				DataGridSource = Images;
+				ClearDataGridSearch();
+			}
+			else
+			{
+				List<string> searchTerms = tbSearch.Text.Split(',').ToList();
+				ImageCollection searchResults = new ImageCollection();
+
+				foreach (string term in searchTerms)
+				{
+					Regex pattern = new Regex(term.ToLower());
+					foreach (ImageModel model in Images)
+					{
+						bool matchWasFound = IsPatternMatch(pattern, model.Author.ToLower())
+							|| IsPatternMatch(pattern, model.Title.ToLower())
+							|| IsPatternMatch(pattern, model.Description.ToLower())
+							|| IsPatternMatch(pattern, model.Keywords.ToLower());
+
+						if (matchWasFound)
+						{
+							searchResults.Add(model);
+						}
+					}
+				}
+
+				DataGridSource = searchResults;
+				ClearDataGridSearch();
+			}
+		}
+
+		/// <summary>
+		/// Resets the Data Grid for after adding or clearing a search
+		/// </summary>
+		private void ClearDataGridSearch()
+		{
+			tbSearch.Text = "";
+			dataGridImageCollection.ItemsSource = DataGridSource;
+			dataGridImageCollection.Items.Refresh();
+		}
+
+		/// <summary>
+		/// Helper method to check if a Regex pattern finds a match in a string
+		/// </summary>
+		/// <param name="pattern"></param>
+		/// <param name="term"></param>
+		/// <returns></returns>
+		private bool IsPatternMatch(Regex pattern, string term)
+		{
+			return pattern.IsMatch(term);
 		}
 
 		private void AddDefaultImages()
@@ -175,6 +235,12 @@ namespace ImgMgr.Wpf
 			set { _images = value; }
 		}
 
+		public ImageCollection DataGridSource
+		{
+			get { return _dataGridSource; }
+			set { _dataGridSource = value; }
+		}
+
 		public ImageModel SelectedDataGridItem
 		{
 			get { return _selectedItem; }
@@ -186,10 +252,5 @@ namespace ImgMgr.Wpf
 		}
 
 		#endregion
-
-		private void btnSearch_Click(object sender, RoutedEventArgs e)
-		{
-
-		}
 	}
 }

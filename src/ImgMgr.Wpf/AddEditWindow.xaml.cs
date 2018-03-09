@@ -85,5 +85,10 @@ namespace ImgMgr.Wpf
 			this.DialogResult = false;
 			this.Close();
 		}
+
+		private void tbFileLocation_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+		{
+			btnOpen_Click(sender, e);
+		}
 	}
 }

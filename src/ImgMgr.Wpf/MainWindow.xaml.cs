@@ -49,6 +49,12 @@ namespace ImgMgr.Wpf
 			dataGridImageCollection.Columns.Add(new DataGridTextColumn() { Header = "Description", Binding = new Binding("Description") });
 		}
 
+		private void Row_DoubleClick(object sender, MouseButtonEventArgs e)
+		{
+			DataGridRow row = sender as DataGridRow;
+			btnEditImage_Click(row, e);
+		}
+
 		private void dataGridImageCollection_SelectionChanged(object sender, SelectionChangedEventArgs e)
 		{
 			if (dataGridImageCollection.Items.Count > 0 && dataGridImageCollection.SelectedIndex < 0)

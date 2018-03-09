@@ -19,7 +19,7 @@
         <Label x:Name="lblAuthor" Content="Author" HorizontalAlignment="Left" Margin="56,115,0,0" VerticalAlignment="Top"/>
         <DatePicker x:Name="dpDateCreated" HorizontalAlignment="Left" Margin="461,119,0,0" VerticalAlignment="Top" Width="130"/>
         <Label x:Name="lblCreateDate" Content="Date Created" HorizontalAlignment="Left" Margin="376,118,0,0" VerticalAlignment="Top"/>
-        <TextBox x:Name="tbFileLocation" HorizontalAlignment="Left" Height="23" Margin="108,35,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="483" IsReadOnly="True"/>
+        <TextBox x:Name="tbFileLocation" HorizontalAlignment="Left" Height="23" Margin="108,35,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="483" IsReadOnly="True" MouseDoubleClick="tbFileLocation_MouseDoubleClick"/>
         <Button x:Name="btnSave" Content="Save" HorizontalAlignment="Left" Margin="401,177,0,0" VerticalAlignment="Top" Width="75" Click="btnSave_Click"/>
         <Button x:Name="btnCancel" Content="Cancel" HorizontalAlignment="Left" Margin="516,177,0,0" VerticalAlignment="Top" Width="75" Click="btnCancel_Click"/>
 

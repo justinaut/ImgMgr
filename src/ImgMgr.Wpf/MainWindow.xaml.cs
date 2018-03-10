@@ -41,12 +41,12 @@ namespace ImgMgr.Wpf
 			AddDefaultImages();
 			DataGridSource = Images;
 
-			// TODO: How to specify date formatting?
-			// TODO: How to specify a text wrap style?
-			dataGridImageCollection.ItemsSource = Images;
-			dataGridImageCollection.Columns.Add(new DataGridTextColumn() { Header = "Title", Binding = new Binding("Title") });
-			dataGridImageCollection.Columns.Add(new DataGridTextColumn() { Header = "Date Created", Binding = new Binding("DateCreated") });
-			dataGridImageCollection.Columns.Add(new DataGridTextColumn() { Header = "Description", Binding = new Binding("Description") });
+			Style wrappedText = new Style(typeof(TextBlock));
+			wrappedText.Setters.Add(new Setter(TextBlock.TextWrappingProperty, TextWrapping.Wrap));
+			dataGridImageCollection.ItemsSource = DataGridSource;
+			dataGridImageCollection.Columns.Add(new DataGridTextColumn() { Header = "Title", Binding = new Binding("Title"), ElementStyle = wrappedText });
+			dataGridImageCollection.Columns.Add(new DataGridTextColumn() { Header = "Date Created", Binding = new Binding("DateCreated") { StringFormat = "yyyy-MM-dd" }, ElementStyle = wrappedText });
+			dataGridImageCollection.Columns.Add(new DataGridTextColumn() { Header = "Description", Binding = new Binding("Description"), ElementStyle = wrappedText, Width = DataGridLength.SizeToCells });
 		}
 
 		private void Row_DoubleClick(object sender, MouseButtonEventArgs e)
@@ -142,7 +142,8 @@ namespace ImgMgr.Wpf
 				}
 
 				DataGridSource = searchResults;
-				ClearDataGridSearch();
+				dataGridImageCollection.ItemsSource = DataGridSource;
+				dataGridImageCollection.Items.Refresh();
 			}
 		}
 

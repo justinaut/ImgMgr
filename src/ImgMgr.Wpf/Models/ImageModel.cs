@@ -18,7 +18,6 @@ namespace ImgMgr.Wpf.Models
 		private string _keywords;
 		private string _fileLocation;
 		private static int LastId = 0;
-		private bool _valid;
 		public event PropertyChangedEventHandler PropertyChanged;
 
 		/// <summary>

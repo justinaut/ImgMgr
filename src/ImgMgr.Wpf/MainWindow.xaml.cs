@@ -126,7 +126,7 @@ namespace ImgMgr.Wpf
 
 				foreach (string term in searchTerms)
 				{
-					Regex pattern = new Regex(term.ToLower());
+					Regex pattern = new Regex(term.ToLower().Trim());
 					foreach (ImageModel model in Images)
 					{
 						bool matchWasFound = IsPatternMatch(pattern, model.Author.ToLower())
@@ -134,7 +134,9 @@ namespace ImgMgr.Wpf
 							|| IsPatternMatch(pattern, model.Description.ToLower())
 							|| IsPatternMatch(pattern, model.Keywords.ToLower());
 
-						if (matchWasFound)
+						bool unique = !searchResults.ContainsId(model.Id);
+
+						if (matchWasFound && unique)
 						{
 							searchResults.Add(model);
 						}
